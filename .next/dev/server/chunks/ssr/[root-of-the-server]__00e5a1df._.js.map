@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///Users/jijijelly/Desktop/jia_portfolio-1/app/projects/dibs/page.tsx"],"sourcesContent":["export default function DibsPage() {\n  return (\n    <div>Dibs</div>\n  );\n}"],"names":[],"mappings":";;;;;;AAAe,SAAS;IACtB,qBACE,+QAAC;kBAAI;;;;;;AAET"}}]
+}

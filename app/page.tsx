@@ -268,7 +268,7 @@ export default function Home() {
           <div className="flex flex-col justify-center" style={{ padding: "0 2rem 0 10rem" }}>
             <p className={`eyebrow fade-up delay-1 ${loaded ? "visible" : ""} flex items-center uppercase mb-2`}
               style={{ fontSize: "0.78rem", letterSpacing: "0.22em", color: "#8b2635" }}>
-              Full-Stack Engineer
+              Full-Stack Engineer 
             </p>
             <div className={`fade-up delay-2 ${loaded ? "visible" : ""}`}
               style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(6rem, 12vw, 12rem)", lineHeight: 0.88, fontWeight: 400, letterSpacing: "-0.02em", marginBottom: "1.5rem", display: "flex" }}>
