@@ -1,5 +1,5 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/projects/clearstart/page": "app/projects/clearstart/page.js",
-  "/projects/dibs/page": "app/projects/dibs/page.js"
+  "/projects/adhd-classifier/page": "app/projects/adhd-classifier/page.js"
 }

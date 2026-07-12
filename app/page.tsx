@@ -22,6 +22,16 @@ const projects = [
     portrait: false,
   },
   {
+    slug: "hfs",
+    title: "HFS",
+    badge: null,
+    desc: "Full-stack member portal for a women's sales training club — dashboards, module completion tracking, confidence logging, and an admin view into member progress.",
+    tags: ["Next.js", "Supabase", "PostgreSQL", "TypeScript", "Vercel"],
+    date: "2026",
+    image: "/images/hfs.png",
+    portrait: false,
+  },
+  {
     slug: "little-fridge",
     title: "little fridge",
     badge: "Hackathon Honorable Mention",
@@ -49,6 +59,16 @@ const projects = [
     tags: ["Unity", "C#", "Game Dev"],
     date: "Feb — May 2024",
     image: "/images/roadracer.png",
+    portrait: false,
+  },
+  {
+    slug: "adhd-classifier",
+    title: "ADHD Classifier",
+    badge: "CS4100 Course Project",
+    desc: "LSTM model trained on the ADHD-200 dataset, combining behavioral and phenotypic data to classify ADHD.",
+    tags: ["Python", "PyTorch", "LSTM", "scikit-learn"],
+    date: "2026",
+    image: "/images/adhd-classifier.png",
     portrait: false,
   },
 ];
