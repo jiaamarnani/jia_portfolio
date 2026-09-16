@@ -10,7 +10,20 @@ const skills = [
   "Figma", "Java", "Git", "Prisma",
 ];
 
-const projects = [
+type Project = {
+  slug: string;
+  title: string;
+  badge: string | null;
+  desc: string;
+  tags: string[];
+  date: string;
+  image: string;
+  portrait: boolean;
+  // No case-study page yet — the card renders unlinked.
+  noPage?: boolean;
+};
+
+const projects: Project[] = [
   {
     slug: "clearstart",
     title: "ClearStart",
@@ -19,6 +32,16 @@ const projects = [
     tags: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind", "Figma", "Vercel"],
     date: "Jan 2026 — Present",
     image: "/images/clearstart.png",
+    portrait: false,
+  },
+  {
+    slug: "jill-sylvester",
+    title: "Jill Sylvester",
+    badge: "Live — Client Work",
+    desc: "Full site rebuild for an award-winning author and mental health counselor — a custom WordPress theme replacing a page-builder stack, with content types she can edit herself.",
+    tags: ["WordPress", "PHP", "ACF", "JavaScript", "Figma"],
+    date: "2026",
+    image: "/images/jill-sylvester.jpg",
     portrait: false,
   },
   {
@@ -60,6 +83,7 @@ const projects = [
     date: "Feb — May 2024",
     image: "/images/roadracer.png",
     portrait: false,
+    noPage: true,
   },
   {
     slug: "adhd-classifier",
@@ -96,18 +120,20 @@ function MagneticButton({ children, className, style, href, download, onMouseEnt
   );
 }
 
-function ProjectRow({ p, i }: { p: typeof projects[0], i: number }) {
+function ProjectRow({ p, i }: { p: Project, i: number }) {
   const [vis, setVis] = useState(false);
-  const ref = useRef<HTMLAnchorElement>(null);
+  const ref = useRef<HTMLElement | null>(null);
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold: 0.15 });
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
-  return (
-    <Link ref={ref} href={`/projects/${p.slug}`}
-      className={`project-row ${vis ? "visible" : ""}`}
-      style={{ transitionDelay: `${i * 0.08}s` }}>
+  const setRef = (el: HTMLElement | null) => { ref.current = el; };
+  const className = `project-row ${p.noPage ? "no-link " : ""}${vis ? "visible" : ""}`;
+  const style = { transitionDelay: `${i * 0.08}s` };
+
+  const body = (
+    <>
       <div className="row-image">
         <div className={`row-img-wrap ${p.portrait ? "portrait" : ""}`}>
           <Image src={p.image} alt={p.title} fill className="object-cover" />
@@ -124,9 +150,18 @@ function ProjectRow({ p, i }: { p: typeof projects[0], i: number }) {
         </div>
         <div className="row-footer">
           <span className="row-date">{p.date}</span>
-          <span className="learn-more">Learn more <span className="learn-arrow">→</span></span>
+          {!p.noPage && <span className="learn-more">Learn more <span className="learn-arrow">→</span></span>}
         </div>
       </div>
+    </>
+  );
+
+  if (p.noPage) {
+    return <div ref={setRef} className={className} style={style}>{body}</div>;
+  }
+  return (
+    <Link ref={setRef} href={`/projects/${p.slug}`} className={className} style={style}>
+      {body}
     </Link>
   );
 }
@@ -248,12 +283,13 @@ export default function Home() {
         }
         .project-row:last-child { border-bottom:1px solid rgba(58,51,48,0.12); }
         .project-row.visible { opacity:1;transform:translateY(0); }
+        .project-row.no-link { cursor:default; }
         .project-row:nth-child(even) .row-image { order:2; }
         .project-row:nth-child(even) .row-content { order:1; }
-        .project-row:hover .row-title { color:#8b2635; }
-        .project-row:hover .row-img-wrap { box-shadow:0 16px 40px rgba(58,51,48,0.12); }
-        .project-row:hover .learn-arrow { transform:translateX(5px); }
-        .project-row:hover .learn-more { gap:0.6rem; }
+        .project-row:not(.no-link):hover .row-title { color:#8b2635; }
+        .project-row:not(.no-link):hover .row-img-wrap { box-shadow:0 16px 40px rgba(58,51,48,0.12); }
+        .project-row:not(.no-link):hover .learn-arrow { transform:translateX(5px); }
+        .project-row:not(.no-link):hover .learn-more { gap:0.6rem; }
 
         .row-img-wrap { aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:#ddd8cc;position:relative;transition:box-shadow 0.35s; }
         .row-img-wrap.portrait { aspect-ratio: 3/4; max-width: 280px; margin: 0 auto; }
